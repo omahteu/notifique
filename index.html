@@ -463,132 +463,53 @@
       });
     </script>
 
-    <!-- Adicione o HTML acima e inclua o jQuery -->
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-      $(document).ready(function () {
-        // Intercepta o envio do formulário
-        $("form").on("submit", function (e) {
-          e.preventDefault(); // Previne o comportamento padrão do formulário
-          
-          // Captura os dados do formulário
-          const titulo = $("#titulo").val();
-          const mensagem = $("#mensagem").val();
-          const anexo = $("#pdf")[0].files[0]; // Obtém o arquivo anexado
-    
-          // Verifica se um arquivo foi anexado
-          if (!anexo) {
-            alert("Por favor, anexe um arquivo.");
-            return;
-          }
-    
-          // Cria um objeto FormData para enviar os dados
-          const formData = new FormData();
-          formData.append("file", anexo);
-    
-          // Faz o envio do arquivo para a API File.io
-          $.ajax({
-            url: "https://file.io", // Endpoint da API File.io
-            type: "POST",
-            data: formData,
-            processData: false, // Necessário para enviar FormData
-            contentType: false, // Evita a configuração automática de Content-Type
-            success: function (response) {
-              if (response.success) {
-                console.log("Arquivo enviado com sucesso!");
-                console.log("URL do arquivo:", response.link);
+      $(document).ready(function() {
+        $('form').on('submit', function(e) {
+          e.preventDefault();
 
-                const newRow = `
-                  <tr>
-                    <td>${titulo}</td>
-                    <td>${mensagem}</td>
-                    <td><a href="${response.link}" target="_blank">Download</a></td>
-                  </tr>
-                `;
-                $("#links_downloads").append(newRow);
-    
-                // Exibe os dados capturados no console
-                $("#titulo").val("");
-                $("#mensagem").val("");
-                $("#pdf").val("");
-              } else {
-                console.error("Erro ao enviar o arquivo:", response);
-                alert("Falha ao enviar o arquivo.");
-              }
+          var titulo = $('#titulo').val();
+          var mensagem = $('#mensagem').val();
+          var pdf = $('#pdf')[0].files[0];
+
+          var formData = new FormData();
+          formData.append('file', pdf);
+
+          $.ajax({
+            url: 'https://file.io',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+              var dataAtual = new Date().toISOString();
+              var json = {
+                "dia": dataAtual,
+                "link": response.link
+              };
+              $.ajax({
+                url: "https://getpantry.cloud/apiv1/pantry/d312caa6-2016-4c9a-b9d6-4ebfeec0ec78/basket/fatur",
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(json),
+                success: function(apiResponse) {
+                  alert('Notificação salva com sucesso')
+                  location.reload()
+                },
+                error: function(err) {
+                  console.log('Erro ao enviar para o Pantry:', err);
+                }
+              });
             },
-            error: function (error) {
-              console.error("Erro ao conectar com a API:", error);
-              alert("Erro ao enviar o arquivo.");
-            },
+            error: function(err) {
+              console.log('Erro ao enviar para o file.io:', err);
+            }
           });
         });
       });
-    </script>
-    
-    <!-- <script>
-      $(document).ready(function () {
-        // Configurar IndexedDB
-        const dbRequest = indexedDB.open('PDFDatabase', 1);
-
-        dbRequest.onupgradeneeded = function (event) {
-          const db = event.target.result;
-          if (!db.objectStoreNames.contains('pdfs')) {
-            db.createObjectStore('pdfs', { keyPath: 'id' }); // Cria o Object Store
-          }
-        };
-
-        dbRequest.onerror = function () {
-          console.error('Erro ao abrir o IndexedDB');
-        };
-
-        dbRequest.onsuccess = function (event) {
-          const db = event.target.result;
-
-          // Manipular o formulário no envio
-          $('form').on('submit', function (e) {
-            e.preventDefault(); // Prevenir o envio padrão do formulário
-
-            // 1. Receber os dados do formulário
-            const titulo = $('#titulo').val();
-            const mensagem = $('#mensagem').val();
-            const fileInput = $('#pdf')[0].files[0]; // Arquivo PDF
-
-            if (!titulo || !mensagem || !fileInput) {
-              alert('Por favor, preencha todos os campos.');
-              return;
-            }
-
-            // 2. Criar um cookie com título, mensagem e chave para o arquivo
-            const fileKey = `pdf_${Date.now()}`; // Gerar uma chave única para o arquivo
-            document.cookie = `titulo=${encodeURIComponent(titulo)}; path=/`;
-            document.cookie = `mensagem=${encodeURIComponent(mensagem)}; path=/`;
-            document.cookie = `fileKey=${encodeURIComponent(fileKey)}; path=/`;
-
-            console.log('Cookies criados:', document.cookie);
-
-            // 3. Salvar o arquivo PDF no IndexedDB
-            const transaction = db.transaction(['pdfs'], 'readwrite');
-            const store = transaction.objectStore('pdfs');
-
-            const pdfData = {
-              id: fileKey, // Usar a chave gerada como ID
-              content: fileInput, // Armazena o arquivo como Blob
-            };
-
-            const request = store.add(pdfData);
-
-            request.onsuccess = function () {
-              console.log('PDF salvo no IndexedDB:', fileInput.name);
-              alert('Notificação enviada com sucesso!');
-            };
-
-            request.onerror = function () {
-              console.error('Erro ao salvar o PDF');
-            };
-          });
-        };
-      });
-    </script> -->
+      </script>
 
   </body>
 </html>
