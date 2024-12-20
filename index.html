@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Notifique</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link
+      rel="icon"
+      href="assets/img/kaiadmin/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <!-- Fonts and icons -->
+    <script src="assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+      WebFont.load({
+        google: { families: ["Public Sans:300,400,500,600,700"] },
+        custom: {
+          families: [
+            "Font Awesome 5 Solid",
+            "Font Awesome 5 Regular",
+            "Font Awesome 5 Brands",
+            "simple-line-icons",
+          ],
+          urls: ["assets/css/fonts.min.css"],
+        },
+        active: function () {
+          sessionStorage.fonts = true;
+        },
+      });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="assets/css/kaiadmin.min.css" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="assets/css/demo.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar" data-background-color="dark">
+        <div class="sidebar-logo">
+          <!-- Logo Header -->
+          <div class="logo-header" data-background-color="dark">
+            <a href="index.html" class="logo">
+              <img
+                src="assets/img/kaiadmin/logo_light.svg"
+                alt="navbar brand"
+                class="navbar-brand"
+                height="20"
+              />
+            </a>
+            <div class="nav-toggle">
+              <button class="btn btn-toggle toggle-sidebar">
+                <i class="gg-menu-right"></i>
+              </button>
+              <button class="btn btn-toggle sidenav-toggler">
+                <i class="gg-menu-left"></i>
+              </button>
+            </div>
+            <button class="topbar-toggler more">
+              <i class="gg-more-vertical-alt"></i>
+            </button>
+          </div>
+          <!-- End Logo Header -->
+        </div>
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+          <div class="sidebar-content">
+            <ul class="nav nav-secondary">
+              <li class="nav-item active">
+                <a
+                  data-bs-toggle="collapse"
+                  href="#dashboard"
+                  class="collapsed"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-home"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <div class="main-header">
+          <div class="main-header-logo">
+            <!-- Logo Header -->
+            <div class="logo-header" data-background-color="dark">
+              <a href="index.html" class="logo">
+                <img
+                  src="assets/img/kaiadmin/logo_light.svg"
+                  alt="navbar brand"
+                  class="navbar-brand"
+                  height="20"
+                />
+              </a>
+              <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                  <i class="gg-menu-right"></i>
+                </button>
+                <button class="btn btn-toggle sidenav-toggler">
+                  <i class="gg-menu-left"></i>
+                </button>
+              </div>
+              <button class="topbar-toggler more">
+                <i class="gg-more-vertical-alt"></i>
+              </button>
+            </div>
+            <!-- End Logo Header -->
+          </div>
+          <!-- Navbar Header -->
+
+          <!-- End Navbar -->
+        </div>
+
+        <div class="container">
+          <div class="page-inner">
+            <div class="page-header">
+              <h3 class="fw-bold mb-3">Notificação</h3>
+              <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                  <a href="#">
+                    <i class="icon-home"></i>
+                  </a>
+                </li>
+                <li class="separator">
+                  <i class="icon-arrow-right"></i>
+                </li>
+                <li class="nav-item">
+                  <a href="#">Notificação</a>
+                </li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="card-title">Preencha os campos abaixo</div>
+                  </div>
+                  <div class="card-body">
+                    <form action="" method="post">
+                      <div class="row">
+
+                        <div class="col-md-6 col-lg-4">
+                          <div class="form-group">
+                            <label for="titulo">Título da notificação</label>
+                            <input type="text" class="form-control" id="titulo" placeholder="Título da notificação"/>
+                          </div>
+                        </div>
+  
+                        <div class="col-md-6 col-lg-4">
+                          <div class="form-group">
+                            <label for="mensagem">Mensagem</label>
+                            <input type="text" class="form-control" id="mensagem" placeholder="Mensagem"/>
+                          </div>
+                        </div>
+  
+                        <div class="col-md-6 col-lg-4">
+                          <div class="form-group">
+                            <label for="pdf">Anexo</label>
+                            <input type="file" class="form-control input-full" id="pdf" placeholder="Anexo"/>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="card-action">
+                        <button class="btn btn-success">Enviar</button>
+                        <button class="btn btn-danger">Cancel</button>
+                      </div>
+
+                    </form>
+
+                    <table class="table" hidden>
+                      <thead>
+                        <tr>
+                          <th>Título</th>
+                          <th>Mensagem</th>
+                          <th>Link para Download</th>
+                        </tr>
+                      </thead>
+                      <tbody id="links_downloads">
+                        <!-- As linhas serão adicionadas aqui -->
+                      </tbody>
+                    </table>
+                    
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom template | don't include it in your project! -->
+      <div class="custom-template">
+        <div class="title">Settings</div>
+        <div class="custom-content">
+          <div class="switcher">
+            <div class="switch-block">
+              <h4>Logo Header</h4>
+              <div class="btnSwitch">
+                <button
+                  type="button"
+                  class="selected changeLogoHeaderColor"
+                  data-color="dark"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="purple"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="light-blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="green"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="orange"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="red"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="white"
+                ></button>
+                <br />
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="dark2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="purple2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="light-blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="green2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="orange2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeLogoHeaderColor"
+                  data-color="red2"
+                ></button>
+              </div>
+            </div>
+            <div class="switch-block">
+              <h4>Navbar Header</h4>
+              <div class="btnSwitch">
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="dark"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="purple"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="light-blue"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="green"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="orange"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="red"
+                ></button>
+                <button
+                  type="button"
+                  class="selected changeTopBarColor"
+                  data-color="white"
+                ></button>
+                <br />
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="dark2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="purple2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="light-blue2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="green2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="orange2"
+                ></button>
+                <button
+                  type="button"
+                  class="changeTopBarColor"
+                  data-color="red2"
+                ></button>
+              </div>
+            </div>
+            <div class="switch-block">
+              <h4>Sidebar</h4>
+              <div class="btnSwitch">
+                <button
+                  type="button"
+                  class="changeSideBarColor"
+                  data-color="white"
+                ></button>
+                <button
+                  type="button"
+                  class="selected changeSideBarColor"
+                  data-color="dark"
+                ></button>
+                <button
+                  type="button"
+                  class="changeSideBarColor"
+                  data-color="dark2"
+                ></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="custom-toggle">
+          <i class="icon-settings"></i>
+        </div>
+      </div>
+      <!-- End Custom template -->
+    </div>
+    <!--   Core JS Files   -->
+    <script src="assets/js/core/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="assets/js/plugin/chart.js/chart.min.js"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src="assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Chart Circle -->
+    <script src="assets/js/plugin/chart-circle/circles.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="assets/js/plugin/datatables/datatables.min.js"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+    <!-- jQuery Vector Maps -->
+    <script src="assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+    <script src="assets/js/plugin/jsvectormap/world.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Kaiadmin JS -->
+    <script src="assets/js/kaiadmin.min.js"></script>
+
+    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+    <script src="assets/js/setting-demo.js"></script>
+    <script src="assets/js/demo.js"></script>
+    <script>
+      $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#177dff",
+        fillColor: "rgba(23, 125, 255, 0.14)",
+      });
+
+      $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#f3545d",
+        fillColor: "rgba(243, 84, 93, .14)",
+      });
+
+      $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
+        type: "line",
+        height: "70",
+        width: "100%",
+        lineWidth: "2",
+        lineColor: "#ffa534",
+        fillColor: "rgba(255, 165, 52, .14)",
+      });
+    </script>
+
+    <!-- Adicione o HTML acima e inclua o jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Intercepta o envio do formulário
+        $("form").on("submit", function (e) {
+          e.preventDefault(); // Previne o comportamento padrão do formulário
+          
+          // Captura os dados do formulário
+          const titulo = $("#titulo").val();
+          const mensagem = $("#mensagem").val();
+          const anexo = $("#pdf")[0].files[0]; // Obtém o arquivo anexado
+    
+          // Verifica se um arquivo foi anexado
+          if (!anexo) {
+            alert("Por favor, anexe um arquivo.");
+            return;
+          }
+    
+          // Cria um objeto FormData para enviar os dados
+          const formData = new FormData();
+          formData.append("file", anexo);
+    
+          // Faz o envio do arquivo para a API File.io
+          $.ajax({
+            url: "https://file.io", // Endpoint da API File.io
+            type: "POST",
+            data: formData,
+            processData: false, // Necessário para enviar FormData
+            contentType: false, // Evita a configuração automática de Content-Type
+            success: function (response) {
+              if (response.success) {
+                console.log("Arquivo enviado com sucesso!");
+                console.log("URL do arquivo:", response.link);
+
+                const newRow = `
+                  <tr>
+                    <td>${titulo}</td>
+                    <td>${mensagem}</td>
+                    <td><a href="${response.link}" target="_blank">Download</a></td>
+                  </tr>
+                `;
+                $("#links_downloads").append(newRow);
+    
+                // Exibe os dados capturados no console
+                $("#titulo").val("");
+                $("#mensagem").val("");
+                $("#pdf").val("");
+              } else {
+                console.error("Erro ao enviar o arquivo:", response);
+                alert("Falha ao enviar o arquivo.");
+              }
+            },
+            error: function (error) {
+              console.error("Erro ao conectar com a API:", error);
+              alert("Erro ao enviar o arquivo.");
+            },
+          });
+        });
+      });
+    </script>
+    
+    <!-- <script>
+      $(document).ready(function () {
+        // Configurar IndexedDB
+        const dbRequest = indexedDB.open('PDFDatabase', 1);
+
+        dbRequest.onupgradeneeded = function (event) {
+          const db = event.target.result;
+          if (!db.objectStoreNames.contains('pdfs')) {
+            db.createObjectStore('pdfs', { keyPath: 'id' }); // Cria o Object Store
+          }
+        };
+
+        dbRequest.onerror = function () {
+          console.error('Erro ao abrir o IndexedDB');
+        };
+
+        dbRequest.onsuccess = function (event) {
+          const db = event.target.result;
+
+          // Manipular o formulário no envio
+          $('form').on('submit', function (e) {
+            e.preventDefault(); // Prevenir o envio padrão do formulário
+
+            // 1. Receber os dados do formulário
+            const titulo = $('#titulo').val();
+            const mensagem = $('#mensagem').val();
+            const fileInput = $('#pdf')[0].files[0]; // Arquivo PDF
+
+            if (!titulo || !mensagem || !fileInput) {
+              alert('Por favor, preencha todos os campos.');
+              return;
+            }
+
+            // 2. Criar um cookie com título, mensagem e chave para o arquivo
+            const fileKey = `pdf_${Date.now()}`; // Gerar uma chave única para o arquivo
+            document.cookie = `titulo=${encodeURIComponent(titulo)}; path=/`;
+            document.cookie = `mensagem=${encodeURIComponent(mensagem)}; path=/`;
+            document.cookie = `fileKey=${encodeURIComponent(fileKey)}; path=/`;
+
+            console.log('Cookies criados:', document.cookie);
+
+            // 3. Salvar o arquivo PDF no IndexedDB
+            const transaction = db.transaction(['pdfs'], 'readwrite');
+            const store = transaction.objectStore('pdfs');
+
+            const pdfData = {
+              id: fileKey, // Usar a chave gerada como ID
+              content: fileInput, // Armazena o arquivo como Blob
+            };
+
+            const request = store.add(pdfData);
+
+            request.onsuccess = function () {
+              console.log('PDF salvo no IndexedDB:', fileInput.name);
+              alert('Notificação enviada com sucesso!');
+            };
+
+            request.onerror = function () {
+              console.error('Erro ao salvar o PDF');
+            };
+          });
+        };
+      });
+    </script> -->
+
+  </body>
+</html>
